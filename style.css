@@ -1,3 +1,8 @@
-#testy {
+.cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+.card {
     border: red solid 1px;
 }
