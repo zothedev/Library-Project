@@ -13,12 +13,12 @@ const myLibrary = [];
 function Book(title, author, pages, read) {
     // properties
     this.title = title,
-    this.author = author,
-    this.pages = pages,
-    this.read = read
+        this.author = author,
+        this.pages = pages,
+        this.read = read
 
     // methods
-    let info = function() {
+    let info = function () {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`
     }
 }
@@ -32,16 +32,16 @@ function addBookToLibrary(title, author, pages, read) {
 
 function renderCards() {
     cards.innerHTML = '';
-        // for each element in the array
+    // for each element in the array
     for (const book of myLibrary) {
-    
+
         // create a card for it
         const card = document.createElement('div');
         // add the card class to the card 
         card.classList.add('card');
         // add that card to the dom as a child of .cards
         cards.appendChild(card);
-    
+
         // for each property of the current book object
         for (const property in book) {
             // create a new <p> to hold this properties info
@@ -56,27 +56,45 @@ function renderCards() {
             }
             // add the bookItem to the current card
             card.appendChild(bookItem);
-        }   
+        }
+
+        let deleteButton = document.createElement('button');
+        deleteButton.textContent = "Delete Book";
+        card.appendChild(deleteButton);
+
+        deleteButton.addEventListener('click', () => {
+            const deleteBook = myLibrary.find(book => book.ID === card.getAttribute('data-id'));
+            log(deleteBook);
+            if (deleteBook) {
+                const index = myLibrary.indexOf(deleteBook); 
+                if (index !== -1) {
+                    myLibrary.splice(index, 1); 
+                }
+                renderCards();
+            }
+        });
     }
 }
+
+
 
 // test books
 addBookToLibrary("testTitle", "testAuthor", 43, "already read");
 addBookToLibrary("testTi44tle", "testAuthor", 43, "already read");
 
-newBookButton.addEventListener('click', function() {
+newBookButton.addEventListener('click', function () {
     // displays our dialog
     // can be exited by pressing ESC or pressing the Add Book or Cancel button
     dialogContainer.showModal();
 });
 
-cancelButton.addEventListener('click', function(e) {
+cancelButton.addEventListener('click', function (e) {
     dialogContainer.close();
     clearFormElementValues();
     e.preventDefault();
 });
 
-submitButton.addEventListener('click', function(e) {
+submitButton.addEventListener('click', function (e) {
     // stop the default functionality of submit buttons (sending data to server)
     e.preventDefault();
 
@@ -90,7 +108,7 @@ submitButton.addEventListener('click', function(e) {
     addBookToLibrary(title, author, pages, read);
 
     clearFormElementValues();
-    
+
     // re-display our books
     renderCards();
 
@@ -105,7 +123,5 @@ function clearFormElementValues() {
     document.querySelector('#pages').value = "";
     document.querySelector('#read').value = "";
 }
-
-// function addDeleteBookButton()
 
 renderCards();
