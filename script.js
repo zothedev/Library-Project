@@ -33,7 +33,7 @@ function addBookToLibrary(title, author, pages, read) {
 function renderCards() {
     cards.innerHTML = '';
         // for each element in the array
-    for (const element of myLibrary) {
+    for (const book of myLibrary) {
     
         // create a card for it
         const card = document.createElement('div');
@@ -43,11 +43,17 @@ function renderCards() {
         cards.appendChild(card);
     
         // for each property of the current book object
-        for (const property in element) {
+        for (const property in book) {
             // create a new <p> to hold this properties info
             const bookItem = document.createElement('p');
             // update the text contents of the <p> (while capitalizing the first letter of the property)
-            bookItem.textContent = `${property[0].toUpperCase() + property.substring(1)}: ${element[property]}`;
+            bookItem.textContent = `${property[0].toUpperCase() + property.substring(1)}: ${book[property]}`;
+
+            // add the book id as a "data-" attribute to the card element to make deleting the book from library easier
+            if (property === "ID") {
+                card.setAttribute('data-id', book.ID);
+                continue;
+            }
             // add the bookItem to the current card
             card.appendChild(bookItem);
         }   
@@ -99,5 +105,7 @@ function clearFormElementValues() {
     document.querySelector('#pages').value = "";
     document.querySelector('#read').value = "";
 }
+
+// function addDeleteBookButton()
 
 renderCards();
