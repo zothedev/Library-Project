@@ -1,3 +1,13 @@
+// selecting our html elements
+const cards = document.querySelector('.cards');
+
+// Selecting our Buttons and Containers.
+const newBookButton = document.querySelector('button');
+const dialogContainer = document.querySelector('.dialogBox');
+const cancelButton = document.querySelector('.closeDialog');
+const submitButton = document.querySelector('.submitButton');
+
+const log = console.log;
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -20,32 +30,74 @@ function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(x);
 }
 
+function renderCards() {
+    cards.innerHTML = '';
+        // for each element in the array
+    for (const element of myLibrary) {
+    
+        // create a card for it
+        const card = document.createElement('div');
+        // add the card class to the card 
+        card.classList.add('card');
+        // add that card to the dom as a child of .cards
+        cards.appendChild(card);
+    
+        // for each property of the current book object
+        for (const property in element) {
+            // create a new <p> to hold this properties info
+            const bookItem = document.createElement('p');
+            // update the text contents of the <p> (while capitalizing the first letter of the property)
+            bookItem.textContent = `${property[0].toUpperCase() + property.substring(1)}: ${element[property]}`;
+            // add the bookItem to the current card
+            card.appendChild(bookItem);
+        }   
+    }
+}
+
+// test books
 addBookToLibrary("testTitle", "testAuthor", 43, "already read");
 addBookToLibrary("testTi44tle", "testAuthor", 43, "already read");
 
-// create a var referencing the .cards container
-const cards = document.querySelector('.cards');
+newBookButton.addEventListener('click', function() {
+    // displays our dialog
+    // can be exited by pressing ESC or pressing the Add Book or Cancel button
+    dialogContainer.showModal();
+});
 
-// displaying books on screen
+cancelButton.addEventListener('click', function(e) {
+    dialogContainer.close();
+    clearFormElementValues();
+    e.preventDefault();
+});
 
-// for each element in the array
-for (const element of myLibrary) {
+submitButton.addEventListener('click', function(e) {
+    // stop the default functionality of submit buttons (sending data to server)
+    e.preventDefault();
 
-    // create a card for it
-    const card = document.createElement('div');
-    // add the card class to the card 
-    card.classList.add('card');
-    // add that card to the dom as a child of .cards
-    cards.appendChild(card);
+    // storing the value of each form element
+    let title = document.querySelector('#title').value;
+    let author = document.querySelector('#author').value;
+    let pages = document.querySelector('#pages').value;
+    let read = document.querySelector('#read').value;
 
-    // for each property of the current book object
-    for (const property in element) {
-        // create a new <p> to hold this properties info
-        const bookItem = document.createElement('p');
-        // update the text contents of the <p> (while capitalizing the first letter of the property)
-        bookItem.textContent = `${property[0].toUpperCase() + property.substring(1)}: ${element[property]}`;
-        // add the bookItem to the current card
-        card.appendChild(bookItem);
-    }
+    // add this book to library
+    addBookToLibrary(title, author, pages, read);
+
+    clearFormElementValues();
     
+    // re-display our books
+    renderCards();
+
+    // close the dialog box
+    dialogContainer.close();
+});
+
+function clearFormElementValues() {
+    // clear the form element contents
+    document.querySelector('#title').value = "";
+    document.querySelector('#author').value = "";
+    document.querySelector('#pages').value = "";
+    document.querySelector('#read').value = "";
 }
+
+renderCards();
