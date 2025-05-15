@@ -63,13 +63,10 @@ function renderCards() {
         card.appendChild(deleteButton);
 
         deleteButton.addEventListener('click', () => {
-            const deleteBook = myLibrary.find(book => book.ID === card.getAttribute('data-id'));
-            log(deleteBook);
-            if (deleteBook) {
-                const index = myLibrary.indexOf(deleteBook); 
-                if (index !== -1) {
-                    myLibrary.splice(index, 1); 
-                }
+            const deletedBookIndex = myLibrary.findIndex(book => book.ID === card.getAttribute('data-id'));
+            log(deletedBookIndex);
+            if (deletedBookIndex !== -1) {
+                myLibrary.splice(deletedBookIndex, 1);
                 renderCards();
             }
         });
@@ -79,8 +76,8 @@ function renderCards() {
 
 
 // test books
-addBookToLibrary("testTitle", "testAuthor", 43, "already read");
-addBookToLibrary("testTi44tle", "testAuthor", 43, "already read");
+addBookToLibrary("testTitle", "testAuthor", 43, "Read");
+addBookToLibrary("testTi44tle", "testAuthor", 43, "Read");
 
 newBookButton.addEventListener('click', function () {
     // displays our dialog
@@ -121,7 +118,7 @@ function clearFormElementValues() {
     document.querySelector('#title').value = "";
     document.querySelector('#author').value = "";
     document.querySelector('#pages').value = "";
-    document.querySelector('#read').value = "";
+    document.querySelector('#read').value = "read";
 }
 
 renderCards();
