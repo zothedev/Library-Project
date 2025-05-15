@@ -21,6 +21,10 @@ function Book(title, author, pages, read) {
     let info = function () {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`
     }
+
+    Book.prototype.toggleReadStatus = function () {
+        this.read = this.read === "Read" ? "Not Read" : "Read";
+    }
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -54,21 +58,37 @@ function renderCards() {
                 card.setAttribute('data-id', book.ID);
                 continue;
             }
+            if (property === "toggleReadStatus") {
+                continue;
+            }
             // add the bookItem to the current card
             card.appendChild(bookItem);
         }
 
+        // create the delete button and add it to the DOM.
         let deleteButton = document.createElement('button');
         deleteButton.textContent = "Delete Book";
         card.appendChild(deleteButton);
 
+        // on click of deleteButton, find the index of the book in myLibrary and delete it
         deleteButton.addEventListener('click', () => {
             const deletedBookIndex = myLibrary.findIndex(book => book.ID === card.getAttribute('data-id'));
-            log(deletedBookIndex);
+            // log(deletedBookIndex);
             if (deletedBookIndex !== -1) {
                 myLibrary.splice(deletedBookIndex, 1);
                 renderCards();
             }
+        });
+
+        // create the read status button
+        let readStatusButton = document.createElement('button');
+        readStatusButton.textContent = "Toggle Read Status";
+        card.appendChild(readStatusButton);
+
+        readStatusButton.addEventListener(('click'), () => {
+            const book = myLibrary.find(book => book.ID === card.getAttribute('data-id'));
+            book.toggleReadStatus();
+            renderCards();
         });
     }
 }
