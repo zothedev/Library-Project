@@ -50,8 +50,8 @@ function renderCards() {
         for (const property in book) {
             // create a new <p> to hold this properties info
             const bookItem = document.createElement('p');
-            // update the text contents of the <p> (while capitalizing the first letter of the property)
-            bookItem.textContent = `${property[0].toUpperCase() + property.substring(1)}: ${book[property]}`;
+            // update the text contents of the <p> 
+            bookItem.textContent = `${book[property]}`;
 
             // add the book id as a "data-" attribute to the card element to make deleting the book from library easier
             if (property === "ID") {
@@ -63,6 +63,13 @@ function renderCards() {
             }
             // add the bookItem to the current card
             card.appendChild(bookItem);
+        }
+
+        // setting the background color (read status) of the book
+        if (book['read'] === "Read") {
+            card.style.backgroundColor = "lightgreen";
+        } else {
+            card.style.backgroundColor = "lightcoral";
         }
 
         // create the delete button and add it to the DOM.
