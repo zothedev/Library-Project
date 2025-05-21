@@ -96,8 +96,8 @@ function renderCards() {
 
 
 // test books
-addBookToLibrary("testTitle", "testAuthor", 43, "Read");
-addBookToLibrary("testTi44tle", "testAuthor", 43, "Read");
+addBookToLibrary("Hatchet", "Gary Paulsen", 192, "Read");
+addBookToLibrary("Warriors", "Erin Hunter", 234, "Not Read");
 
 newBookButton.addEventListener('click', function () {
     // displays our dialog
