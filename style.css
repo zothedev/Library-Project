@@ -1,12 +1,22 @@
+/* add a restore books button (refreshes page) */
+/* give each book (card) a unique color and change read color to be border color */
+/* preset more books */
+
 * {
     padding: 0;
     margin: 0;
+
+    --background-color: rgb(145, 165, 182);
+}
+
+body {
+    background-color: rgb(69, 69, 69);
 }
 
 main {
     padding-top: 30px;
-    background-color: rgb(145, 165, 182);
-    width:70%;
+    background-color: var(--background-color);
+    width:50%;
     height: 100vh;
     margin: 0 auto;
 }
@@ -48,9 +58,46 @@ nav button {
 
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .card button {
     margin: 10px 0;
     height: 40px;
+
+    background-color: var(--background-color);
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+/* delete book button */
+.card button:first-of-type {
+    order: 3;
+    margin-right: -70px;
+    border: none;
+
+    background-image: url('https://cdn-icons-png.flaticon.com/512/75/75519.png');
+}
+
+/* toggle read status button */
+.card button:last-of-type {
+    order: -1;
+    margin-left: -70px;
+
+    background-image: url("https://www.iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png");
+}
+
+/* book title */
+.card p:first-of-type {
+    margin-left: -50px;
+}
+
+.unread-icon {
+    background-image: url('https://static.thenounproject.com/png/2258479-200.png');
 }

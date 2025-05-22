@@ -50,8 +50,12 @@ function renderCards() {
         for (const property in book) {
             // create a new <p> to hold this properties info
             const bookItem = document.createElement('p');
-            // update the text contents of the <p> 
-            bookItem.textContent = `${book[property]}`;
+            // update the text contents of the <p>
+            if (property === "read") {
+                bookItem.textContent = `[ ${book[property]} ]`;
+            } else {
+                bookItem.textContent = `${book[property]}`;
+            }
 
             // add the book id as a "data-" attribute to the card element to make deleting the book from library easier
             if (property === "ID") {
@@ -74,7 +78,6 @@ function renderCards() {
 
         // create the delete button and add it to the DOM.
         let deleteButton = document.createElement('button');
-        deleteButton.textContent = "Delete Book";
         card.appendChild(deleteButton);
 
         // on click of deleteButton, find the index of the book in myLibrary and delete it
@@ -89,7 +92,6 @@ function renderCards() {
 
         // create the read status button
         let readStatusButton = document.createElement('button');
-        readStatusButton.textContent = "Toggle Read Status";
         card.appendChild(readStatusButton);
 
         readStatusButton.addEventListener(('click'), () => {
