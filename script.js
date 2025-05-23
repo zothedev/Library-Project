@@ -52,10 +52,9 @@ function renderCards() {
             const bookItem = document.createElement('p');
             // update the text contents of the <p>
             if (property === "read") {
-                bookItem.textContent = `[ ${book[property]} ]`;
-            } else {
-                bookItem.textContent = `${book[property]}`;
+                continue;
             }
+            bookItem.textContent = `${book[property]}`;
 
             // add the book id as a "data-" attribute to the card element to make deleting the book from library easier
             if (property === "ID") {
@@ -63,17 +62,11 @@ function renderCards() {
                 continue;
             }
             if (property === "toggleReadStatus") {
+                bookItem.classList.add('bookIcon');
                 continue;
             }
             // add the bookItem to the current card
             card.appendChild(bookItem);
-        }
-
-        // setting the background color (read status) of the book
-        if (book['read'] === "Read") {
-            card.style.backgroundColor = "lightgreen";
-        } else {
-            card.style.backgroundColor = "lightcoral";
         }
 
         // create the delete button and add it to the DOM.
@@ -94,11 +87,13 @@ function renderCards() {
         let readStatusButton = document.createElement('button');
         card.appendChild(readStatusButton);
 
+        // read status event listener
         readStatusButton.addEventListener(('click'), () => {
             const book = myLibrary.find(book => book.ID === card.getAttribute('data-id'));
             book.toggleReadStatus();
             renderCards();
         });
+        setReadColor(card, book);
     }
 }
 
@@ -107,6 +102,8 @@ function renderCards() {
 // test books
 addBookToLibrary("Hatchet", "Gary Paulsen", 192, "Read");
 addBookToLibrary("Warriors", "Erin Hunter", 234, "Not Read");
+
+// move readStatus event listener over here as func
 
 newBookButton.addEventListener('click', function () {
     // displays our dialog
@@ -141,6 +138,28 @@ submitButton.addEventListener('click', function (e) {
     // close the dialog box
     dialogContainer.close();
 });
+
+function getRandomInt(max) {
+    while (true) {
+        let num = Math.floor(Math.random() * max);
+        if (num < 60) {
+            continue;
+        }
+        return num;
+    }
+
+}
+
+function setReadColor(card, book) {
+    let cardBookIcon = card.querySelector(":last-child");
+    log(cardBookIcon);
+    if (book['read'] === "Read") {
+        cardBookIcon.style.backgroundColor = "lightgreen";
+    } else {
+        cardBookIcon.style.backgroundColor = "lightcoral";
+    }
+    log("inside");
+}
 
 function clearFormElementValues() {
     // clear the form element contents

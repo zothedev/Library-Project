@@ -5,12 +5,13 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 
-    --background-color: rgb(145, 165, 182);
+    --background-color: rgb(94, 170, 143);
 }
 
 body {
-    background-color: rgb(69, 69, 69);
+    background-color: rgb(202, 202, 202);
 }
 
 main {
@@ -50,16 +51,21 @@ nav button {
 }
 
 .card {
-    border: rgb(0, 0, 0) solid 3px;
+    /* this property gets updated by the books read stauts */
+    border: 3px solid black;
+
     background-color: white;
     height: 50px;
-    width: 500px;
+    width: 800px;
     padding: 10px;
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .card button {
@@ -79,8 +85,11 @@ nav button {
 /* delete book button */
 .card button:first-of-type {
     order: 3;
-    margin-right: -70px;
+    margin-right: -50px;
     border: none;
+
+    width: 30px;
+    height: 30px;
 
     background-image: url('https://cdn-icons-png.flaticon.com/512/75/75519.png');
 }
@@ -88,9 +97,10 @@ nav button {
 /* toggle read status button */
 .card button:last-of-type {
     order: -1;
-    margin-left: -70px;
+    margin-left: -62px;
 
     background-image: url("https://www.iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png");
+    border: 2px solid black;
 }
 
 /* book title */
@@ -98,6 +108,14 @@ nav button {
     margin-left: -50px;
 }
 
-.unread-icon {
-    background-image: url('https://static.thenounproject.com/png/2258479-200.png');
+.dialogBox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 3px solid black;
+
+    
 }
+
