@@ -102,6 +102,10 @@ function renderCards() {
 // test books
 addBookToLibrary("Hatchet", "Gary Paulsen", 192, "Read");
 addBookToLibrary("Warriors", "Erin Hunter", 234, "Not Read");
+addBookToLibrary("Diary of a Wimpy Kid", "Jeff Kinney", 99, "Read");
+addBookToLibrary("Intro to Javascript", "Jack Michael", 463, "Not Read");
+
+
 
 // move readStatus event listener over here as func
 
