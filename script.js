@@ -10,22 +10,25 @@ const submitButton = document.querySelector('.submitButton');
 const log = console.log;
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
-    // properties
-    this.title = title,
-        this.author = author,
-        this.pages = pages,
-        this.read = read
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title,
+            this.author = author,
+            this.pages = pages,
+            this.read = read
+    }
 
     // methods
-    let info = function () {
+    info() {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`
     }
 
-    Book.prototype.toggleReadStatus = function () {
+    toggleReadStatus() {
+        // toggle the read status of the book
         this.read = this.read === "Read" ? "Not Read" : "Read";
     }
 }
+
 
 function addBookToLibrary(title, author, pages, read) {
     // take params, create a book then store it in the array
